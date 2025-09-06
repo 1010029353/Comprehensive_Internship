@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 COCO数据集下载和解压脚本
 下载COCO 2014训练集、验证集和标注文件
