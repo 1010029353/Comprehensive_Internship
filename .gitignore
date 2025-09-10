@@ -1,3 +1,6 @@
 data
 .venv
 .idea
+models
+__pycache__
+logs
