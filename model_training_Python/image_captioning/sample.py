@@ -170,7 +170,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='图像描述生成推理脚本')
 
-    parser.add_argument('--model_path', type=str, default='models/best_model.pth.tar',
+    parser.add_argument('--model_path', type=str, default='models/final_model.pth.tar',
                        help='训练好的模型文件路径')
     parser.add_argument('--vocab_path', type=str, default='data/vocab.pkl',
                        help='词汇表文件路径')
