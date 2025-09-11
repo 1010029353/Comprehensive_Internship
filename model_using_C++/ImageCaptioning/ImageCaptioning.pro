@@ -25,7 +25,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 INCLUDEPATH += .\libtorch\include
 INCLUDEPATH += .\libtorch\include\torch\csrc\api\include
-INCLUDEPATH += .\opencv\build\include
 
 LIBS += -LE:\Comprehensive_Internship\model_using_C++\ImageCaptioning\libtorch\lib \
             -lc10\
@@ -35,6 +34,3 @@ LIBS += -LE:\Comprehensive_Internship\model_using_C++\ImageCaptioning\libtorch\l
             -ltorch_cpu
 
 LIBS += -INCLUDE:"?ignore_this_library_placeholder@@YAHXZ"
-
-LIBS += -LE:\Comprehensive_Internship\model_using_C++\ImageCaptioning\opencv\build\x64\vc16\lib \
-    -lopencv_world4120d
