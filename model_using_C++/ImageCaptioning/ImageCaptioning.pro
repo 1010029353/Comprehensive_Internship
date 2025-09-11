@@ -29,7 +29,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 INCLUDEPATH += .\libtorch\include
 INCLUDEPATH += .\libtorch\include\torch\csrc\api\include
 
-LIBS += -LE:\Comprehensive_Internship\model_using_C++\ImageCaptioning\libtorch\lib \
+LIBS += -L"E:\Comprehensive_Internship\model_using_C++\ImageCaptioning\libtorch\lib" \
             -lc10\
             -lc10_cuda\
             -ltorch\

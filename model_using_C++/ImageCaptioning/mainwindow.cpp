@@ -11,6 +11,7 @@
 #include <QImage>
 #include <QApplication>
 #include <QStyleFactory>
+#include <QCoreApplication>
 
 // 主窗口的构造函数，设置UI和加载模型
 MainWindow::MainWindow(QWidget *parent)
@@ -27,14 +28,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 加载TorchScript模型从资源
     try {
-        module = torch::jit::load("./assets/model.ts", device);
+        QString appDir = QCoreApplication::applicationDirPath();
+        QString modelPath = appDir + "/assets/model.ts";
+        module = torch::jit::load(modelPath.toStdString(), device);
         modelLoaded = true;  // 成功了就标记一下
     } catch (const std::exception& e) {
         modelLoaded = false;  // 出错了标记失败
     }
 
     // 加载词汇表从JSON资源
-    QFile vocabFile("./assets/vocab.json");
+    QString appDir = QCoreApplication::applicationDirPath();
+    QString vocabPath = appDir + "/assets/vocab.json";
+    QFile vocabFile(vocabPath);
     if (vocabFile.open(QIODevice::ReadOnly)) {
         QJsonDocument doc = QJsonDocument::fromJson(vocabFile.readAll());
         QJsonObject obj = doc.object()["idx2word"].toObject();
@@ -167,7 +172,9 @@ torch::Tensor MainWindow::loadImage(const QString& path)
     }
 
     qimg = qimg.convertToFormat(QImage::Format_RGB888);  // 转RGB格式
-    qimg = qimg.scaled(224, 224, Qt::KeepAspectRatio, Qt::SmoothTransformation);  // 平滑缩放，模拟PIL antialias
+
+    // 强制缩放到精确224x224，忽略宽高比，匹配Python Resize行为
+    qimg = qimg.scaled(224, 224, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
     // 手动转换为浮点[0,1]，创建tensor
     torch::Tensor tensor = torch::empty({1, 3, 224, 224}, torch::kFloat32);
