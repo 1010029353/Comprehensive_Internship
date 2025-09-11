@@ -1,9 +1,5 @@
 """
 模型转换脚本：将PyTorch图像描述模型转为TorchScript格式，并导出词汇表JSON
-
-@author SaltyHeart
-
-这个版本修复了trace的动态流问题，用script替换；简化了模块，只封装必要推理逻辑；硬编码特殊token ID以兼容C++。
 """
 
 import torch
