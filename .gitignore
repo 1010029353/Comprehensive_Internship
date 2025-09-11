@@ -4,7 +4,6 @@ data
 models
 __pycache__
 logs
-thirdparty_install
 build
-make.bat
 libtorch
+opencv
