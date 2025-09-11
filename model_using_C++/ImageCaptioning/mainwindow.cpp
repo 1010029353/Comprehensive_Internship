@@ -9,6 +9,8 @@
 #include <vector>
 #include <string>
 #include <QImage>
+#include <QApplication>
+#include <QStyleFactory>
 
 // 主窗口的构造函数，设置UI和加载模型
 MainWindow::MainWindow(QWidget *parent)
@@ -19,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent)
     , vocabLoaded(false)
 {
     ui->setupUi(this);  // 初始化UI从designer生成的
+
+    // 设置整体现代风格，使用Fusion以获得平滑外观
+    QApplication::setStyle(QStyleFactory::create("Fusion"));
 
     // 加载TorchScript模型从资源
     try {
@@ -46,28 +51,42 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget *central = new QWidget(this);
     setCentralWidget(central);
     QVBoxLayout *layout = new QVBoxLayout(central);
+    layout->setContentsMargins(20, 20, 20, 20);  // 添加边距，让界面更宽敞现代
+    layout->setSpacing(15);  // 增加组件间距
 
-    // 图像显示标签
+    // 图像显示标签，美化边框和阴影
     imageLabel = new QLabel();
     imageLabel->setAlignment(Qt::AlignCenter);
+    imageLabel->setStyleSheet("QLabel { background-color: white; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }");
     layout->addWidget(imageLabel);
 
-    // 按钮布局
+    // 按钮布局，美化按钮为现代圆角风格
     QHBoxLayout *btnLayout = new QHBoxLayout();
+    btnLayout->setSpacing(10);  // 按钮间距
     uploadButton = new QPushButton("上传图片");
+    uploadButton->setStyleSheet("QPushButton { background-color: #007BFF; color: white; border-radius: 5px; padding: 8px 16px; font-size: 14px; } QPushButton:hover { background-color: #0056b3; }");
     btnLayout->addWidget(uploadButton);
     generateButton = new QPushButton("生成描述");
+    generateButton->setStyleSheet("QPushButton { background-color: #28A745; color: white; border-radius: 5px; padding: 8px 16px; font-size: 14px; } QPushButton:hover { background-color: #218838; }");
     btnLayout->addWidget(generateButton);
     layout->addLayout(btnLayout);
 
-    // 描述文本框
+    // 描述文本框，美化为现代卡片风格
     captionText = new QTextEdit();
     captionText->setReadOnly(true);
+    captionText->setStyleSheet("QTextEdit { background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 5px; padding: 10px; font-family: 'Segoe UI'; font-size: 14px; }");
     layout->addWidget(captionText);
 
     // 连接按钮信号
     connect(uploadButton, &QPushButton::clicked, this, &MainWindow::onUploadClicked);
     connect(generateButton, &QPushButton::clicked, this, &MainWindow::onGenerateClicked);
+
+    // 设置窗口标题和最小尺寸，让整体更现代
+    setWindowTitle("图像描述");
+    setMinimumSize(400, 600);
+
+    // 添加窗口图标，使用资源中的png文件
+    setWindowIcon(QIcon(":/icons/ImageCaptioning.png"));
 }
 
 // 析构函数，清理UI
