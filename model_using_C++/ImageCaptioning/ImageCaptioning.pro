@@ -31,9 +31,7 @@ INCLUDEPATH += .\libtorch\include\torch\csrc\api\include
 
 LIBS += -L"E:\Comprehensive_Internship\model_using_C++\ImageCaptioning\libtorch\lib" \
             -lc10\
-            -lc10_cuda\
             -ltorch\
-            -ltorch_cuda\
             -ltorch_cpu
 
 LIBS += -INCLUDE:"?ignore_this_library_placeholder@@YAHXZ"

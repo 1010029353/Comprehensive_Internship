@@ -17,7 +17,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , device(torch::cuda::is_available() ? torch::kCUDA : torch::kCPU)
+    , device(torch::kCPU)
     , modelLoaded(false)
     , vocabLoaded(false)
 {
